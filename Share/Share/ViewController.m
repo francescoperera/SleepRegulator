@@ -12,21 +12,25 @@
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *noOfHours;
-@property (assign, nonatomic) int hours;
 @property (weak, nonatomic) IBOutlet UIDatePicker *TimeSelector;
-@property (weak, nonatomic) IBOutlet UIDatePicker *MyDatePicker;
-
+@property NSInteger alarmHour;
+@property NSInteger alarmMinute;
+@property NSInteger sysHour;
+@property NSInteger sysMinute;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-
-    
     // Do any additional setup after loading the view, typically from a nib.
-    [self.MyDatePicker addTarget:self action:@selector(datePickerChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.TimeSelector addTarget:self action:@selector(datePickerChanged:) forControlEvents:UIControlEventValueChanged];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate: [self.TimeSelector date]];
+    self.sysHour = [components hour];
+    self.sysMinute = [components minute];
+    NSLog(@"system time is: %ld", self.sysHour);
+
     
 }
 
@@ -34,18 +38,21 @@
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"HH:mm"];
-    NSString *strDate = [dateFormatter stringFromDate:datePicker.date];
-    self.TimeSelector = strDate;
-    NSLog(@"strDate: %@", strDate);
-}
-- (IBAction)setTime:(id)sender {
-    NSDate *chosen = [self.TimeSelector date];
-    NSLog(@"time is: %@", chosen);
+    
 }
 
 - (IBAction)saveButton:(id)sender {
-    self.hours = [self.noOfHours.text intValue];
-    NSLog(@"Hours is: %d", self.hours);
+    int hours = [self.noOfHours.text intValue];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate: [self.TimeSelector date]];
+    self.alarmHour = [components hour];
+    self.alarmMinute = [components minute];
+    NSLog(@"chosenTime: %ld", self.alarmHour);
+    if((self.alarmHour *60 + self.alarmMinute)==(self.sysHour*60 + self.sysMinute)|| ((self.sysHour+hours)%24>(self.alarmHour*60 + self.alarmMinute)))
+    {
+        //generate local notifications
+    }
+    NSLog(@"Hours is: %d", hours);
     
 }
 

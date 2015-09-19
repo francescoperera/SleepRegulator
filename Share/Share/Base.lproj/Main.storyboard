@@ -24,9 +24,6 @@
                                 <date key="date" timeIntervalSinceReferenceDate="464306930.04303199">
                                     <!--2015-09-18 22:08:50 +0000-->
                                 </date>
-                                <connections>
-                                    <action selector="setTime:" destination="BYZ-38-t0r" eventType="valueChanged" id="EOd-ao-5z6"/>
-                                </connections>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QTg-eP-iP2">
                                 <rect key="frame" x="133" y="368" width="34" height="30"/>
@@ -47,7 +44,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="MyDatePicker" destination="W7H-XL-Ptq" id="mcy-2T-FxR"/>
                         <outlet property="TimeSelector" destination="W7H-XL-Ptq" id="usk-YF-pyU"/>
                         <outlet property="noOfHours" destination="4K7-oP-hWK" id="gg9-TV-hwv"/>
                     </connections>
